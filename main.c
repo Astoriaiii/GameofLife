@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 int row=0;
 int col=0;
 int ** mapInit;
@@ -181,24 +182,96 @@ int** game(int **map){
     return map;
 }
 
-int main() {
-    //countCol("game.txt");
-    col = countCol("games.txt");
-    row = countRow("games.txt");
-    mapInit = readfile("games.txt");
+int writefile(char *filename){
+    //int **a;
+    int i, j;
+    FILE *fp = fopen(filename,"w");
+    if (fp == NULL){
+        printf("fail to open file");
+        return -1;
+    }
+    for (i=0; i<row; i++){
+        for (j=0; j<col; j++){
+            fprintf(fp, "%d", mapInit[i][j]);
+        }
+        fprintf(fp,"\n");
+    }
+    fclose(fp);
+    return 0;
+}
 
+int main(int argc, char *argv[]) {
+    int i,j;
+    char str[10];
 
+    if (argc !=2){
+        printf("Error! Please input again!");
+        exit(0);
+    }
+    printf("Please input the rounds you want to play \n (if you input negative integer, the game will evolves till it is stable):\n");
+    scanf("%s", str);
+    int round = atoi(str);
+    char strtmp[5];
+    itoa(round,strtmp,10);
+    if(strcmp(str,strtmp) != 0){
+        printf("Error! Please input a integer!");
+    }
 
-    mapInit = game(mapInit);
-    for (int i = 0; i < row; i++)
+    //initialize the game
+    char filename[20];
+    strcpy(filename, argv[1]);
+    col = countCol(filename);
+    row = countRow(filename);
+    mapInit = readfile(filename);
+
+    if(round < 0){
+        while(1){
+            int **map;
+            map = (int**)malloc(sizeof(int*) * (row+1));
+            for (i=0; i<row+1; i++){
+                map[i] = (int*)malloc(sizeof(int) * (col+1));
+            }//printf("1");
+            for(i=0; i<row; i++){
+                for(j=0; j<row; j++){
+                    map[i][j] = mapInit[i][j];
+                }
+            }
+            mapInit = game(mapInit);
+            int same = 0;
+            for(i=0; i<row; i++){
+                for(j=0; j<col; j++){
+                    if(map[i][j] == mapInit[i][j]){
+                        same += 1;
+                    }
+                }
+            }
+            if (same == row * col){
+                printf("The game reaches stable and will end.");
+                break;
+            }
+        }
+    }
+    else{
+        if (round != 0){
+            while(1){
+                mapInit = game(mapInit);
+                round --;
+                if(round == 0){
+                    break;
+                }
+            }
+        }
+    }
+
+    for (i = 0; i < row; i++)
     {
-        for (int j = 0; j < col; j++)
+        for (j = 0; j < col; j++)
         {
             printf("%d", mapInit[i][j]);
         }
         printf("\n");
     }
-    
+    writefile(filename);
     free(mapInit);
     return 0;
 
