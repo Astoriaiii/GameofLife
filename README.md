@@ -13,3 +13,4 @@ There are two mode for the playing mode: 1.users input number of steps 2.let the
 The evolution results will be displayed in 2 ways: firstly maps represents by 0 and 1 will be displayed in commanding window, and a SDL window map will be displayed also.
 
 The commited history is shown below:
+https://github.com/Astoriaiii/GameofLife/blob/main/commit1.jpg
