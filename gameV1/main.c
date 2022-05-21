@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
     printf("please choose the initialize mode you want.\n");
     printf("(If by CLICKING, then choose A. If by READING FILE, then directly choose B):");
     scanf("%s", mode);
-    printf("%s", mode);
+    //printf("%s", mode);
     if ((strcmp(mode, "A") != 0) && (strcmp(mode, "a") != 0) && (strcmp(mode, "B") != 0) && (strcmp(mode, "b") != 0)) {
         printf("Error! wrong input for play mode!");
         exit(0);
@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
             printf("Error! Please input a integer!");
             exit(0);
         }
-        printf("%d", row);
+        //printf("%d", row);
         int unit = 640 / row;
 
         //malloc storage for mapInit
@@ -207,7 +207,7 @@ int main(int argc, char *argv[]) {
         renderer = SDL_CreateRenderer(window, -1, 0);
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderClear(renderer);
-        printf("%d\n", round);
+        //printf("%d\n", round);
 
         SDL_Event event;
         //run game till stable
@@ -258,7 +258,6 @@ int main(int argc, char *argv[]) {
                         SDL_Quit();
                         break;
                 }
-
             }
         }
         //run game from customer input

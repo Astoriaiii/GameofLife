@@ -57,7 +57,7 @@ int** readfile(char *filename){
         exit(0);
     }
 //    printf("4");
-    printf("row: %d, column: %d\n", row, col);
+    //printf("row: %d, column: %d\n", row, col);
     for (i=0; i<row; i++){
         for (j=0; j<col; j++){
 //            printf("5");
