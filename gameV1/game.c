@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "game.h"
 
+//implement the game rules
 int** game(int **map){
     int i, j;
     int flag;
@@ -48,7 +49,7 @@ int** game(int **map){
                 flag =(mapInit[i - 1][j - 1] + mapInit[i - 1][j] + mapInit[i - 1][j + 1] + mapInit[i][j - 1] +
                        mapInit[i][j + 1] + mapInit[i + 1][j - 1] + mapInit[i + 1][j] + mapInit[i + 1][j + 1]);
             }
-            printf("flag:%d\n", flag);
+            //printf("flag:%d\n", flag);
             //printf("5");
             if (mapInit[i][j] == 1){
                 switch(flag){

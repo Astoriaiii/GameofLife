@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
         exit(0);
     }
 
-
+    //decide play mode
     char mode[5];
     printf("please choose the initialize mode you want.\n");
     printf("(If by CLICKING, then choose A. If by READING FILE, then directly choose B):");
@@ -59,6 +59,7 @@ int main(int argc, char *argv[]) {
         printf("%d", row);
         int unit = 640 / row;
 
+        //malloc storage for mapInit
         mapInit = (int **) malloc(sizeof(int *) * row);
         for (i = 0; i < row; i++) {
             mapInit[i] = (int *) malloc(sizeof(int) * row);
@@ -72,6 +73,7 @@ int main(int argc, char *argv[]) {
 
         //printf("\n1");
 
+        //create SDL window
         SDL_Init(SDL_INIT_VIDEO);
         if (SDL_Init(SDL_INIT_VIDEO) < 0) {
             printf("Error! SDL unable to initialize! %s", SDL_GetError());
@@ -100,6 +102,7 @@ int main(int argc, char *argv[]) {
         SDL_Event event;
         while (SDL_WaitEvent(&event)) {
             switch (event.type) {
+                //draw rectangle
                 default: {
                     for (i = 0; i < row; i++) {
                         for (j = 0; j < row; j++) {
@@ -111,6 +114,7 @@ int main(int argc, char *argv[]) {
                     SDL_RenderPresent(renderer);
                     break;
                 }
+                //realize click initialize
                 case SDL_MOUSEBUTTONUP: {
                     int x = 0, y = 0;
                     if (event.button.button == SDL_BUTTON_LEFT) {
@@ -143,6 +147,7 @@ int main(int argc, char *argv[]) {
                         break;
                     }
                 }
+                //click to close window
                 case SDL_QUIT: {
                     SDL_Quit();
                     break;
@@ -176,7 +181,7 @@ int main(int argc, char *argv[]) {
             printf("Error! Please input a integer!");
         }
 
-
+        //Initialze map from file
         mapInit = readfile(filename);
         SDL_Init(SDL_INIT_VIDEO);
         if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -184,6 +189,7 @@ int main(int argc, char *argv[]) {
             return -1;
         }
 
+        //create window
         window = SDL_CreateWindow("GameofLife",
                                   SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
                                   WINDOW_WIDTH, WINDOW_HEIGHT,
@@ -204,6 +210,7 @@ int main(int argc, char *argv[]) {
         printf("%d\n", round);
 
         SDL_Event event;
+        //run game till stable
         if (round < 0) {
             while (SDL_WaitEvent(&event)) {
                 switch (event.type) {
@@ -253,7 +260,9 @@ int main(int argc, char *argv[]) {
                 }
 
             }
-        } else {
+        }
+        //run game from customer input
+        else {
             while (SDL_WaitEvent(&event)) {
                 switch (event.type) {
                     default: {
@@ -287,8 +296,7 @@ int main(int argc, char *argv[]) {
 
             }
         }
-
-
+        //show the result of game by 0 and 1
         for (i = 0; i < row; i++) {
             for (j = 0; j < col; j++) {
                 printf("%d", mapInit[i][j]);
@@ -303,6 +311,5 @@ int main(int argc, char *argv[]) {
     //SDL_FreeSurface(surface);
     //SDL_DestroyWindow(window);
     return 0;
-
 
 }

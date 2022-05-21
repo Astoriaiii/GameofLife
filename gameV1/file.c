@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "game.h"
 
+//count the length of column
 int countCol(char *filename){
     FILE* fp = fopen(filename, "r");
     if (fp == NULL){
@@ -21,6 +22,7 @@ int countCol(char *filename){
     return col;
 }
 
+//count the length of row
 int countRow(char *filename){
     FILE* fp = fopen(filename,"r");
     if (fp == NULL){
@@ -37,6 +39,7 @@ int countRow(char *filename){
     return row;
 }
 
+//read the initialized state from file
 int** readfile(char *filename){
 //    printf("1");
     int i, j;
@@ -79,6 +82,7 @@ int** readfile(char *filename){
     return mapInit;
 }
 
+//write the game state to file
 int writefile(char *filename){
     //int **a;
     int i, j;
